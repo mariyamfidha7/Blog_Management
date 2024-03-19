@@ -25,7 +25,7 @@ export class UserController {
   // Request body shall contain
   //   1. name : string mandatory max length - 30
   //   2. username : string mandatory max length - 15
-  //   3. email : string mandatory unique max length - 40
+  //   3. email : string mandatory max length - 40
   //   4. age : number
   //   5. password : string mandatory
   //   5. gender : string
@@ -34,13 +34,7 @@ export class UserController {
   //      the system shall return an error message '<Field Name> is required'
   //   b. If the email address provided is not in valid format, then
   //      the system shall return an error message 'Please provide valid Email'
-  //   c .If the email address already exists, then
-  //      the system shall return an error message 'Email Address already exists'
-  //   d. If the username has characters other than alphanumeric, then
-  //      the system shall return an error message 'Username does not allow other than alpha numeric chars'
-  //   e. If the password does not contain minimum 8 characters including number, special character, upper and lowercase,
-  //      then the system shall return an error message 'Use stronger password'
-  //   f. If the above validation is passed, then
+  //   c. If the above validation is passed, then
   //        1. The system shall save the details to the DB
   //        2. System shall return the newly created user.
   /**
