@@ -1,49 +1,38 @@
 import {
-  IsAlphanumeric,
   IsEmail,
   IsEnum,
   IsInt,
   IsNotEmpty,
   IsString,
-  Matches,
+  MaxLength,
   MinLength,
 } from 'class-validator';
-
-const passwordRegEx =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,20}$/;
+import { UserValidationMessages } from '../../validations/validation-messages';
 
 export class CreateUserDto {
-  @IsString()
-  @MinLength(2, { message: 'Name must have atleast 2 characters.' })
-  @IsNotEmpty()
+  @IsString({ message: UserValidationMessages.nameIsString })
+  @IsNotEmpty({ message: UserValidationMessages.nameNotEmpty })
+  @MaxLength(30, { message: UserValidationMessages.nameMaxLength })
   name: string;
 
-  @IsNotEmpty()
-  @MinLength(3, { message: 'Username must have atleast 3 characters.' })
-  @IsAlphanumeric(null, {
-    message: 'Username does not allow other than alpha numeric chars.',
-  })
+  @IsNotEmpty({ message: UserValidationMessages.usernameNotEmpty })
+  @IsString({ message: UserValidationMessages.usernameIsString })
+  @MinLength(3, { message: UserValidationMessages.usernameMinLength })
+  @MaxLength(15, { message: UserValidationMessages.usernameMaxLength })
   username: string;
 
-  @IsNotEmpty()
-  @IsEmail(null, { message: 'Please provide valid Email.' })
+  @IsEmail({}, { message: UserValidationMessages.emailInvalidFormat })
+  @IsNotEmpty({ message: UserValidationMessages.emailNotEmpty })
+  @MaxLength(40, { message: UserValidationMessages.emailMaxLength })
   email: string;
 
-  @IsInt()
+  @IsInt({ message: UserValidationMessages.ageIsInt })
   age: number;
 
-  @IsString()
-  @IsEnum(['f', 'm', 'u'])
+  @IsEnum(['f', 'm', 'u'], { message: UserValidationMessages.genderEnum })
   gender: string;
 
-  @IsNotEmpty()
-  @Matches(passwordRegEx, {
-    message: `Password must contain Minimum 8 and maximum 20 characters, 
-      at least one uppercase letter, 
-      one lowercase letter, 
-      one number and 
-      one special character`,
-  })
+  @IsNotEmpty({ message: UserValidationMessages.passwordNotEmpty })
   password: string;
 
   readonly blogs: number[];

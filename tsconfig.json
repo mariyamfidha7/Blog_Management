@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node", "@types/jsonwebtoken"],
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,

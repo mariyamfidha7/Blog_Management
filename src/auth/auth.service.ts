@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService } from '../auth/jwt/jwt.service';
+import { compare } from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
@@ -9,26 +10,37 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(
-    username: string,
-    pass: string,
-  ): Promise<{ access_token: string }> {
-    const user = await this.userService.findOne(username);
-    if (user?.password !== pass) {
-      throw new UnauthorizedException();
+  /**
+   * Authenticate user based on provided credentials.
+   *
+   * @param {string} email - User's email.
+   * @param {string} pass - User's password.
+   * @returns {Promise<{ access_token: string }>} - JWT token for authenticated user.
+   */
+  async signIn(email: string, pass: string): Promise<{ access_token: string }> {
+    const user = await this.userService.getUserByEmail(email);
+    if (!user) {
+      throw new UnauthorizedException('Invalid email');
     }
-    const payload = { sub: user.id, username: user.username };
+
+    const passwordMatch = await compare(pass, user.password);
+    if (!passwordMatch) {
+      throw new UnauthorizedException('Incorrect password');
+    }
+
+    const payload = { sub: user.id, email: user.email };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.sign(payload),
     };
   }
 
+  /**
+   * Decode authentication token.
+   *
+   * @param {string} token - Authentication token.
+   * @returns {Promise<any>} - Decoded token.
+   */
   async decodeToken(token: string): Promise<any> {
-    try {
-      const decoded = await this.jwtService.verifyAsync(token);
-      return decoded;
-    } catch (error) {
-      throw new UnauthorizedException('Invalid token');
-    }
+    return this.jwtService.verify(token);
   }
 }

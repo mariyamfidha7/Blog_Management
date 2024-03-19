@@ -1,32 +1,31 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { BlogsModule } from './blogs/blogs.module';
-import { Blog } from './blogs/entities/blog.entity';
-import { TagsModule } from './tags/tags.module';
-import { Tag } from './tags/entities/tag.entity';
+import User from './entities/user.entity';
+import Blog from './entities/blog.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      password: 'admin',
-      username: 'postgres',
-      entities: [User, Blog, Tag],
-      database: 'Blog',
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(<string>process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      entities: [User, Blog],
       synchronize: true,
       logging: true,
     }),
     UserModule,
     AuthModule,
     BlogsModule,
-    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UserModule } from '../user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
+import { UserModule } from '../user/user.module';
 import { UserService } from 'src/user/user.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/user/entities/user.entity';
+import User from 'src/entities/user.entity';
+import { JwtService } from './jwt/jwt.service';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { User } from 'src/user/entities/user.entity';
       signOptions: { expiresIn: '600s' },
     }),
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, JwtService],
   controllers: [AuthController],
   exports: [AuthService],
 })

@@ -1,15 +1,14 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-
+import { BlogValidationMessages } from '../../validations/validation-messages';
 export class CreateBlogDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: BlogValidationMessages.titleIsString })
+  @IsNotEmpty({ message: BlogValidationMessages.titleNotEmpty })
   title: string;
 
-  @IsNotEmpty()
-  username: string;
-
-  @IsNotEmpty()
+  @IsNotEmpty({ message: BlogValidationMessages.descriptionNotEmpty })
   description: string;
 
-  readonly userID: number;
+  @IsString({ message: BlogValidationMessages.tagIsString })
+  @IsNotEmpty({ message: BlogValidationMessages.tagNotEmpty })
+  tags: string;
 }
