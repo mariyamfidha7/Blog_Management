@@ -7,10 +7,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import User from 'src/entities/user.entity';
 import { SuccessMessageDto } from 'src/dto/success-message.dto';
 import { encodePassword } from 'src/utils/bcrypt.utils';
-
+import User from 'src/entities/user.entity';
 @Injectable()
 export class UserService {
   constructor(
