@@ -94,20 +94,6 @@ export class BlogsController {
     return blogResponseDtos;
   }
 
-  // @Get()
-  // async getAllBlogs(
-  //   @Query('limit') limit: number = 3,
-  //   @Query('offset') offset: number = 0,
-  // ): Promise<BlogResponseDto[]> {
-  //   const paginationResult: Pagination<Blogs> =
-  //     await this.blogService.getAllBlog(limit, offset);
-  //   const blogs: Blogs[] = paginationResult.items;
-  //   const blogResponseDtos: BlogResponseDto[] = blogs.map((blog) =>
-  //     plainToClass(BlogResponseDto, blog),
-  //   );
-  //   return blogResponseDtos;
-  // }
-
   /**
    * API URL: GET /blogs/:id
    *

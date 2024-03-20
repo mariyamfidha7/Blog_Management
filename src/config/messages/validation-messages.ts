@@ -1,4 +1,4 @@
-export class UserValidationMessages {
+export class ValidationMessages {
   static readonly nameNotEmpty = 'Name cannot be empty.';
   static readonly nameIsString = 'Name should be a string.';
   static readonly nameMaxLength = 'Name cannot exceed 30 characters.';
@@ -13,9 +13,6 @@ export class UserValidationMessages {
   static readonly ageIsInt = 'Age must be an integer.';
   static readonly genderEnum = 'Gender must be one of: f, m, u.';
   static readonly passwordNotEmpty = 'Password cannot be empty.';
-}
-
-export class BlogValidationMessages {
   static readonly titleNotEmpty = 'Title cannot be empty.';
   static readonly titleIsString = 'Title should be a string.';
   static readonly descriptionNotEmpty = 'Description cannot be empty.';

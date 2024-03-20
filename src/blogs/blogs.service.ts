@@ -111,7 +111,7 @@ export class BlogsService {
 
     const blog = await this.blogRepository.findOne({
       where: { id },
-      relations: ['author_id'],
+      relations: ['author'],
     });
 
     if (!blog) {

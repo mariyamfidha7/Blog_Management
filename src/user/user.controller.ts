@@ -124,6 +124,7 @@ export class UserController {
     await this.userService.updateUser(id, updateUserDto);
     return { message: 'User updated successfully' };
   }
+
   /**
    * API URL- DELETE :/users/:id
    * Delete a particular user

@@ -1,5 +1,4 @@
 import { Expose } from 'class-transformer';
-// import Users from 'src/entities/user.entity';
 
 export class BlogResponseDto {
   @Expose()
