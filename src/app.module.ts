@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { BlogsModule } from './blogs/blogs.module';
 import User from './entities/user.entity';
 import Blog from './entities/blog.entity';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import Blog from './entities/blog.entity';
       entities: [User, Blog],
       synchronize: true,
       logging: true,
+      namingStrategy: new SnakeNamingStrategy(),
     }),
     UserModule,
     AuthModule,

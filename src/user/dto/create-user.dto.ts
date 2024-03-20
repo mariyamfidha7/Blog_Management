@@ -7,32 +7,32 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { UserValidationMessages } from '../../validations/validation-messages';
+import { ValidationMessages } from '../../config/messages/validation-messages';
 
 export class CreateUserDto {
-  @IsString({ message: UserValidationMessages.nameIsString })
-  @IsNotEmpty({ message: UserValidationMessages.nameNotEmpty })
-  @MaxLength(30, { message: UserValidationMessages.nameMaxLength })
+  @IsString({ message: ValidationMessages.nameIsString })
+  @IsNotEmpty({ message: ValidationMessages.nameNotEmpty })
+  @MaxLength(30, { message: ValidationMessages.nameMaxLength })
   name: string;
 
-  @IsNotEmpty({ message: UserValidationMessages.usernameNotEmpty })
-  @IsString({ message: UserValidationMessages.usernameIsString })
-  @MinLength(3, { message: UserValidationMessages.usernameMinLength })
-  @MaxLength(15, { message: UserValidationMessages.usernameMaxLength })
+  @IsNotEmpty({ message: ValidationMessages.usernameNotEmpty })
+  @IsString({ message: ValidationMessages.usernameIsString })
+  @MinLength(3, { message: ValidationMessages.usernameMinLength })
+  @MaxLength(15, { message: ValidationMessages.usernameMaxLength })
   username: string;
 
-  @IsEmail({}, { message: UserValidationMessages.emailInvalidFormat })
-  @IsNotEmpty({ message: UserValidationMessages.emailNotEmpty })
-  @MaxLength(40, { message: UserValidationMessages.emailMaxLength })
+  @IsEmail({}, { message: ValidationMessages.emailInvalidFormat })
+  @IsNotEmpty({ message: ValidationMessages.emailNotEmpty })
+  @MaxLength(40, { message: ValidationMessages.emailMaxLength })
   email: string;
 
-  @IsInt({ message: UserValidationMessages.ageIsInt })
+  @IsInt({ message: ValidationMessages.ageIsInt })
   age: number;
 
-  @IsEnum(['f', 'm', 'u'], { message: UserValidationMessages.genderEnum })
+  @IsEnum(['f', 'm', 'u'], { message: ValidationMessages.genderEnum })
   gender: string;
 
-  @IsNotEmpty({ message: UserValidationMessages.passwordNotEmpty })
+  @IsNotEmpty({ message: ValidationMessages.passwordNotEmpty })
   password: string;
 
   readonly blogs: number[];
